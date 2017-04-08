@@ -21,36 +21,37 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
                 android:id="@+id/start_date_text_view"
+                style="@style/DatePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:text="Start Date" />
+                android:hint="@string/start_date_hint" />
 
-            <TextView
+            <EditText
                 android:id="@+id/end_date_text_view"
+                style="@style/DatePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End Date" />
+                android:hint="@string/end_date_hint" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/time_left_text_view"
+            style="@style/MainTimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal"
-            android:text="38"
-            android:textSize="50sp" />
+            tools:text="30" />
 
         <TextView
             android:id="@+id/stat_info_text_view"
+            style="@style/timer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="11%" />
+            tools:text="11%" />
 
     </LinearLayout>
 

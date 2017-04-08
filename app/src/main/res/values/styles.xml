@@ -8,4 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- datepicker -->
+    <style name="DatePicker">
+        <item name="android:minWidth">100dp</item>
+        <item name="android:inputType">datetime</item>
+    </style>
+
+    <!-- timer -->
+    <style name="timer">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <!-- main timer -->
+    <style name="MainTimer" parent="timer">
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
 </resources>

@@ -53,7 +53,8 @@
             style="@style/timer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="11%" />
+            tools:text="Stats for nerds"
+            android:text="Stats for Nerds:"/>
 
         <TextView
             android:id="@+id/info_text_view"

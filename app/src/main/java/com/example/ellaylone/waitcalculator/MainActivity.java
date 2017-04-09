@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     String endDate = EMPTY_VIEW;
     String todayDate = EMPTY_VIEW;
     int difference = 0;
+    int startDifference = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,22 @@ public class MainActivity extends AppCompatActivity {
 
         setupDb();
 
-        displayMainTimer(difference);
+        startDifference = calculateDifference(startDate, endDate);
+
+        final Handler h = new Handler();
+        h.postDelayed(new Runnable()
+        {
+            private long time = 0;
+
+            @Override
+            public void run()
+            {
+                difference--;
+                displayMainTimer(difference);
+                displayInfo(difference);
+                h.postDelayed(this, 1000);
+            }
+        }, 1000); // 1 second delay (takes millis)
     }
 
 
@@ -184,8 +201,7 @@ public class MainActivity extends AppCompatActivity {
         return totalSecondsDifference;
     }
 
-    private void displayMainTimer(int difference) {
-        TextView mainTimer = (TextView) findViewById(R.id.main_timer_text_view);
+    private String formatDifference(int difference) {
         if (difference > 0) {
             int fullDays = difference / (60 * 60 * 24);
             difference -= fullDays * (60 * 60 * 24);
@@ -193,11 +209,23 @@ public class MainActivity extends AppCompatActivity {
             difference -= fullHours * (60 * 60);
             int fullMinutes = difference / (60);
             int fullSeconds = difference - fullMinutes * 60;
-            String mainTimerText = "" + fullDays + "d " + String.format("%02d", fullHours) + ":" + String.format("%3d", fullMinutes) + ":" + String.format("%3d", fullSeconds);
-            mainTimer.setText(mainTimerText);
-        } else {
-            mainTimer.setText("");
+            String mainTimerText = "" + fullDays + "d " + String.format("%02d", fullHours) + ":" + String.format("%02d", fullMinutes) + ":" + String.format("%02d", fullSeconds);
+            return mainTimerText;
         }
+        return "";
+    }
+
+    private void displayMainTimer(int difference) {
+        TextView mainTimer = (TextView) findViewById(R.id.main_timer_text_view);
+        mainTimer.setText(formatDifference(difference));
+    }
+
+    private void displayInfo(int difference) {
+        TextView info = (TextView) findViewById(R.id.info_text_view);
+        String infoText = "Total Difference: " + formatDifference(startDifference) + "\n";
+        infoText += "Current Difference: " + formatDifference(difference) + "\n";
+        infoText += "Percent Difference: " + String.format("%.2f", (100.0 - (difference / new Float(startDifference) * 100))) + "%";
+        info.setText(infoText);
     }
 
     private void checkDates() {

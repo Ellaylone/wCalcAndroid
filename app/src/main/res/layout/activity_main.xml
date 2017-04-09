@@ -40,18 +40,23 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/time_left_text_view"
+            android:id="@+id/main_timer_text_view"
             style="@style/MainTimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="30" />
 
         <TextView
-            android:id="@+id/stat_info_text_view"
+            android:id="@+id/percent_timer_text_view"
             style="@style/timer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="11%" />
+
+        <TextView
+            android:id="@+id/info_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

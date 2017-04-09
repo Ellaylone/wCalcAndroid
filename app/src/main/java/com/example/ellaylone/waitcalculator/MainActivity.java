@@ -6,11 +6,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    String startDate;
-    String endDate;
+    final String EMPTY_VIEW = "";
+    String startDate = EMPTY_VIEW;
+    String endDate = EMPTY_VIEW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,25 @@ public class MainActivity extends AppCompatActivity {
         setupEndDatePicker();
     }
 
+    private String calculateDifference() {
+        String difference = "36";
+        //TODO calculate difference
+        return difference;
+    }
+
+    private void displayMainTimer (String difference) {
+        TextView mainTimer = (TextView) findViewById(R.id.main_timer_text_view);
+        mainTimer.setText(difference);
+    }
+
+    private void checkDates() {
+        if (startDate != EMPTY_VIEW && endDate != EMPTY_VIEW) {
+            displayMainTimer(calculateDifference());
+        } else {
+            displayMainTimer(EMPTY_VIEW);
+        }
+    }
+
     private void setupStartDatePicker() {
         EditText startDateEdit = (EditText) findViewById(R.id.start_date_text_view);
         startDateEdit.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 startDate = s.toString();
+                checkDates();
             }
 
             @Override
@@ -78,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 endDate = s.toString();
+                checkDates();
             }
 
             @Override
